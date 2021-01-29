@@ -1,0 +1,12 @@
+<h1><%= @attr.capitalize %>: <%= @obj.name %></h1>
+
+<div class="gamelist">
+  <% @gamelist.each do |game| %>
+    <div class="gamelink">
+      <a href="/games/<%= game.id %>">
+        <%= game.name %></a> - 
+      <%= game.console.name %>
+      (<%= game.regions.map(&:name).join('/') %>)
+    </div>
+  <% end %>
+</div>

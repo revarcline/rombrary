@@ -6,9 +6,7 @@
       <a href="/games/<%= game.id %>">
         <%= game.name %></a> - 
       <%= game.console.name %>
-      (<% game.regions.each do |region| %>
-      <%= region.name %>
-    <% end %>)
+      (<%= game.regions.map(&:name).join('/') %>)
     </div>
   <% end %>
 </div>

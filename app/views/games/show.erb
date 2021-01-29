@@ -1,0 +1,5 @@
+<h1 class="line"><%= @game.name %></h1>
+<h2>console: <%= @game.console.name %></h2>
+<h2>region: <%= @game.regions.map(&:name).join('/') %></h2>
+<h2>publisher: <%= @game.publisher.name %></h2>
+<h2>genre: <%= @game.genres.map(&:name).join(', ') %></h2>

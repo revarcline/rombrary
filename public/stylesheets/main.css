@@ -37,7 +37,7 @@
     margin-bottom: 16px;
   }
 
-  h2.line {
+  .line {
     border-bottom: 2px solid #928374;
   }
 
@@ -91,6 +91,10 @@
 
   .branding {
     clear: both;
+  }
+
+  ul.genrelist {
+    margin-left: 50px;
   }
 
   footer.branding {
