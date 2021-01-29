@@ -8,4 +8,6 @@ class Game < ActiveRecord::Base
   has_many :regions, through: :game_regions
   belongs_to :console
   belongs_to :publisher
+
+  validates :name, presence: true
 end

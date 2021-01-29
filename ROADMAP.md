@@ -69,22 +69,14 @@ make publisher, console, and genre slugable
 like
 for anyone:
 games/:slug - show game
-games/publishers/:slug - all games by publisher
-games/consoles/:slug - all games on console
-games/genres/:slug
-games/regions/:slug
+games/
+publishers/:slug - all games by publisher
+consoles/:slug - all games on console
+genres/:slug
+regions/:slug
 
 while logged in as user
-:user/ - all games, links to:
-:user/publishers/:slug to see all games from publisher user has
-:user/consoles/:slug to see all games for console user has
-:user/genres/:slug to see all games in genre user has
-:user/regions/:slug to see all games in genre user has
-
-can refactor to:
-context/:attr/:slug
-and use a switch/case statement with show_attribute
-BECAUSE
+:user/ - all user games
 
 put login page on home view, only display if logged in!
 
