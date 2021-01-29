@@ -3,20 +3,21 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Rombrary</title>
+    <title>rombrary</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
   <body>
     <div class="header">
-      <div id="logo"><a href="/">Rombrary</a></div>
+      <div id="logo"><a href="/">
+          <img src="/images/rombrary_logo.png" alt="rombrary">
+        </a></div>
       <div class="nav">
       <% if logged_in? %>
         Link to logout
       <% else %>
-        link to Log in <br>
-        link to Sign up
+        link to Log in - link to Sign up
       <% end %>
       </div>
     </div>
@@ -25,7 +26,7 @@
         <%= yield %>
 
       <footer class="branding">
-        <small>&copy; 2021 <strong>Rombrary</strong></small>
+        <small>&copy; 2021 <strong>rombrary</strong></small>
       </footer>
     </div>
   </body>

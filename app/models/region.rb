@@ -4,5 +4,6 @@ class Region < ActiveRecord::Base
   has_many :game_regions
   has_many :games, through: :game_regions
 
-  validates :name, presence: true
+  validates :name, presence: true,
+                   uniqueness: true
 end

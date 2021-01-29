@@ -1,5 +1,4 @@
 class Game < ActiveRecord::Base
-  include Slugifiable
   has_many :user_games
   has_many :game_genres
   has_many :game_regions

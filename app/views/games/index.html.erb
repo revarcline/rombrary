@@ -1,1 +1,14 @@
-<h1>This is the Model's index page.</h1>
+<h1>all games</h1>
+
+<div class="gamelist">
+  <% Game.all.each do |game| %>
+    <div class="gamelink">
+      <a href="/games/<%= game.id %>">
+        <%= game.name %></a> - 
+      <%= game.console.name %>
+      (<% game.regions.each do |region| %>
+      <%= region.name %>
+    <% end %>)
+    </div>
+  <% end %>
+</div>

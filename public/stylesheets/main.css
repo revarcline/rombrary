@@ -49,6 +49,24 @@
     margin-bottom: 18px;
   }
 
+  a {
+    color: #458588;
+  }
+
+  a:visited {
+    color: #b16286;
+  }
+
+  a:hover {
+    color: #83a698;
+    text-decoration: none;
+  }
+
+  a:active {
+    color: #cc241d;
+    text-decoration: none;
+  }
+
   .main {
     overflow: hidden;
   }

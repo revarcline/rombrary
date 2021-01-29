@@ -68,15 +68,28 @@ logged out can view all games, possibly offer different sorting methods for game
 make publisher, console, and genre slugable
 like
 for anyone:
-games/:slug - show game
-games/
+games/:id - show game
+(while logged in)
+- other users with game,
+
+
+games/ - all games
 publishers/:slug - all games by publisher
 consoles/:slug - all games on console
 genres/:slug
 regions/:slug
 
+so :attr/:slug
+make use of send(params[:attr])
+
+do in game controller
+possibly use a slug send function to simplify!
+same with edit
+
 while logged in as user
-:user/ - all user games
+users/:slug - all user games
+
+do in user controller as above
 
 put login page on home view, only display if logged in!
 
@@ -85,3 +98,15 @@ if game in no libraries, can be deleted by logged in user
 (check against user_games)
 
 similarly, if genre/publisher/console/region is unused, can be deleted by logged in user
+
+
+ORRRRR
+after getting this working, add admin!
+(no)
+also: game-new should only be available AFTER a search, to prevent duplicate entries
+
+search needs to use uri-encode
+
+games/find?=:term
+params[term]
+https://github.com/mezis/fuzzily
