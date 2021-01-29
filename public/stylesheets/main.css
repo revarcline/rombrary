@@ -1,5 +1,4 @@
 @media screen {
-  /* --- Reset Styles --- */
   * {
     list-style: none;
     margin: 0;
@@ -12,7 +11,6 @@
     width: 100%;
   }
 
-  /* --- Welcome Page Styles --- */
   body {
     background-color: #3c3836;
     color: #ebdbb2;
@@ -34,10 +32,13 @@
   }
 
   h2 {
-    border-bottom: 2px solid #ccc;
     font-size: 24px;
     line-height: 36px;
     margin-bottom: 16px;
+  }
+
+  h2.line {
+    border-bottom: 2px solid #928374;
   }
 
   h3 {
@@ -63,7 +64,7 @@
   }
 
   a:active {
-    color: #cc241d;
+    color: #fb4934;
     text-decoration: none;
   }
 
