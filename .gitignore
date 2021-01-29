@@ -3,3 +3,7 @@
 
 # don't send the binstubs over
 bin/
+
+# database
+db/*.sqlite
+db/schema.rb

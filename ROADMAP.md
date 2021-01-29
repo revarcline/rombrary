@@ -45,6 +45,9 @@ GameGenres
 - has_many games
 - has_many genres
 
+----
+just added regions and game regions, similar to genre
+
 * need to handle multi-console releases... maybe always present as (game)(console) when not sorted by console since they're different files after all
 
 
@@ -69,11 +72,13 @@ games/:slug - show game
 games/publishers/:slug - all games by publisher
 games/consoles/:slug - all games on console
 games/genres/:slug
+games/regions/:slug
 
 while logged in as user
 users/:user_slug/ - all games, links to:
 users/:user_slug/publishers/:pub_slug to see all games from publisher user has
 users/:user_slug/consoles/:con_slug to see all games for console user has
 users/:user_slug/genres/:gen_slug to see all games in genre user has
+users/:user_slug/regions/:region_slug to see all games in genre user has
 
 put login page on home view, only display if logged in!
