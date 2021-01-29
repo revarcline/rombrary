@@ -1,1 +1,5 @@
+# store secrets in the ol' dotenv
 .env
+
+# don't send the binstubs over
+/bin
