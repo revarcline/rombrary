@@ -1,5 +1,4 @@
 class Console < ActiveRecord::Base
-  include Slugifiable::InstanceMethods
-  extend Slugifiable::ClassMethods
+  include Slugifiable
   has_many :games
 end

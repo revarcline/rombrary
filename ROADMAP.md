@@ -82,3 +82,4 @@ users/:user_slug/genres/:gen_slug to see all games in genre user has
 users/:user_slug/regions/:region_slug to see all games in genre user has
 
 put login page on home view, only display if logged in!
+

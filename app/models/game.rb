@@ -1,6 +1,8 @@
 class Game < ActiveRecord::Base
-  include Slugifiable::InstanceMethods
-  extend Slugifiable::ClassMethods
+  include Slugifiable
+  has_many :user_games
+  has_many :game_genres
+  has_many :game_regions
   has_many :users, through: :user_games
   has_many :genres, through: :game_genres
   has_many :regions, through: :game_regions

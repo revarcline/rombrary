@@ -1,4 +1,4 @@
 class GameRegion < ActiveRecord::Base
-  has_many :games
-  has_many :regions
+  belongs_to :game
+  belongs_to :region
 end

@@ -1,4 +1,4 @@
 class GameGenre < ActiveRecord::Base
-  has_many :games
-  has_many :genres
+  belongs_to :game
+  belongs_to :genre
 end
