@@ -2,4 +2,4 @@
 .env
 
 # don't send the binstubs over
-/bin
+bin/
