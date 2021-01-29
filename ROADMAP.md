@@ -75,11 +75,21 @@ games/genres/:slug
 games/regions/:slug
 
 while logged in as user
-users/:user_slug/ - all games, links to:
-users/:user_slug/publishers/:pub_slug to see all games from publisher user has
-users/:user_slug/consoles/:con_slug to see all games for console user has
-users/:user_slug/genres/:gen_slug to see all games in genre user has
-users/:user_slug/regions/:region_slug to see all games in genre user has
+:user/ - all games, links to:
+:user/publishers/:slug to see all games from publisher user has
+:user/consoles/:slug to see all games for console user has
+:user/genres/:slug to see all games in genre user has
+:user/regions/:slug to see all games in genre user has
+
+can refactor to:
+context/:attr/:slug
+and use a switch/case statement with show_attribute
+BECAUSE
 
 put login page on home view, only display if logged in!
 
+
+if game in no libraries, can be deleted by logged in user
+(check against user_games)
+
+similarly, if genre/publisher/console/region is unused, can be deleted by logged in user
