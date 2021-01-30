@@ -9,4 +9,5 @@
       (<%= game.regions.map(&:name).join('/') %>)
     </div>
   <% end %>
+  <h2><%= 'nothing to see here' if @gamelist.empty? %></h1> 
 </div>
