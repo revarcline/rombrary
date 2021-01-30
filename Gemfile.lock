@@ -44,6 +44,8 @@ GEM
     diff-lcs (1.4.4)
     dotenv (2.7.6)
     eventmachine (1.2.7)
+    fuzzily (0.3.3)
+      activerecord (>= 2.3.17)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
@@ -124,6 +126,7 @@ DEPENDENCIES
   capybara
   database_cleaner!
   dotenv
+  fuzzily
   pry
   rack-test
   rake
