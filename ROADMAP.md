@@ -110,3 +110,5 @@ search needs to use uri-encode
 games/find?=:term
 params[term]
 https://github.com/mezis/fuzzily
+
+adding created_by as an integer, make helper method my_post? which checks against current user id

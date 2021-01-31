@@ -27,6 +27,7 @@ fighting = Genre.create(name: 'Fighting')
 
 ## games
 mario = Game.create(name: 'Super Mario Bros',
+                    created_by: 2,
                     year: 1985,
                     genres: [action, platform],
                     regions: [jp],
@@ -34,6 +35,7 @@ mario = Game.create(name: 'Super Mario Bros',
                     publisher: nintendo)
 
 sonic = Game.create(name: 'Sonic the Hedgehog 2',
+                    created_by: 3,
                     year: 1992,
                     genres: [action, platform],
                     regions: [us],
@@ -41,6 +43,7 @@ sonic = Game.create(name: 'Sonic the Hedgehog 2',
                     publisher: sega)
 
 kaizo = Game.create(name: 'Kaizo Mario World',
+                    created_by: 1,
                     year: 2007,
                     regions: [jp, hack],
                     genres: [action, platform],
@@ -48,6 +51,7 @@ kaizo = Game.create(name: 'Kaizo Mario World',
                     publisher: nintendo)
 
 castlevania = Game.create(name: 'Castlevania: Aria of Sorrow',
+                          created_by: 1,
                           year: 2003,
                           regions: [eu],
                           genres: [action, platform, rpg],
@@ -55,6 +59,7 @@ castlevania = Game.create(name: 'Castlevania: Aria of Sorrow',
                           publisher: konami)
 
 street_fighter = Game.create(name: 'Street Fighter II',
+                             created_by: 2,
                              year: 1992,
                              regions: [us],
                              genres: [fighting],
@@ -62,6 +67,7 @@ street_fighter = Game.create(name: 'Street Fighter II',
                              publisher: capcom)
 
 mgs = Game.create(name: 'Metal Gear Solid',
+                  created_by: 3,
                   year: 1998,
                   regions: [eu],
                   genres: [stealth, action],
