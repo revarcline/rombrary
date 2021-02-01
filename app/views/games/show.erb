@@ -1,8 +1,19 @@
 <h1 class="line"><%= @game.name %></h1>
-<h2>console: <%= @game.console.name %></h2>
-<h2>region: <%= @game.regions.map(&:name).join('/') %></h2>
-<h2>publisher: <%= @game.publisher.name %></h2>
-<h2>genre: <%= @game.genres.map(&:name).join(', ') %></h2>
+<h2>console: <a href="/games/by/console/<%= @game.console.slug %>">
+    <%= @game.console.name %>
+  </a></h2>
+
+<h2>region: <% @game.regions.each do |region| %>
+  <a href="/games/by/region/<%= region.name %>"><%= region.name %></a> 
+<% end %></h2>
+
+<h2>publisher: <% @game.publishers.each do |publisher| %>
+  <a href="/games/by/publisher/<%= publisher.name %>"><%= publisher.name %></a> 
+<% end %></h2>
+
+<h2>genres: <% @game.genres.each do |genre| %>
+  <a href="/games/by/genre/<%= genre.name %>"><%= genre.name %></a> 
+<% end %></h2>
 
 <%#if created by session user link to other users with this game%>
 <%#if created by session user link to edit and delete%>
