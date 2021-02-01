@@ -1,5 +1,7 @@
 <h1>log in</h1>
 <br>
+<div class="error"><%= flash[:error] if flash[:error] != '' %></div>
+<br>
 <form action="/login" method="post">
   <label for="username">username: </label>
   <input type="text" name="username">

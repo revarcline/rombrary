@@ -26,12 +26,13 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     end
+    flash[:error] = 'incorrect username or password'
     redirect '/login'
   end
 
   # GET /logout
   get '/logout' do
-    session.clear
+    session[:user_id] = nil
     redirect '/'
   end
 
