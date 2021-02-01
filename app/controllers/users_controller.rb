@@ -26,7 +26,13 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     end
-    redirect '/signup'
+    redirect '/login'
+  end
+
+  # GET /logout
+  get '/logout' do
+    session.clear
+    redirect '/'
   end
 
   # GET: /users/5

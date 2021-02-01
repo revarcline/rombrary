@@ -9,6 +9,5 @@ ActiveRecord::Base.establish_connection(
 )
 
 require_all 'app/models/concerns'
- require 'sysrandom'
 require './app/controllers/application_controller'
 require_all 'app'
