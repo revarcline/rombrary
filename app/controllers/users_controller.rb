@@ -4,9 +4,14 @@ class UsersController < ApplicationController
     erb :"/users/index"
   end
 
-  # GET: /users/new
-  get '/users/new' do
+  # GET: /signup
+  get '/signup' do
     erb :"/users/new"
+  end
+
+  # GET /login
+  get '/login' do
+    erb :'/users/login'
   end
 
   # POST: /users
