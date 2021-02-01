@@ -1,7 +1,7 @@
 <h1>all games</h1>
 
 <div class="gamelist">
-  <% Game.all.each do |game| %>
+  <% Game.order(:name).each do |game| %>
     <div class="gamelink">
       <a href="/games/<%= game.id %>">
         <%= game.name %></a> - 

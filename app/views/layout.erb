@@ -15,9 +15,10 @@
         </a></div>
       <div class="nav">
       <% if logged_in? %>
-        Link to logout
+        <a href="/logout">logout</a>
       <% else %>
-        link to Log in - link to Sign up
+        <a href="/login">login</a> - 
+        <a href="/signup">signup</a>
       <% end %>
       </div>
     </div>

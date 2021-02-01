@@ -22,7 +22,11 @@ class UsersController < ApplicationController
   # POST: /login
   post '/login' do
     @user = User.find_by(username: params[:username])
-    redirect '/users/'
+    if @user&.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
+    end
+    redirect '/signup'
   end
 
   # GET: /users/5
