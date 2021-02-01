@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   # GET: /users
   get '/users' do
-    erb :"/users/index"
+    erb :"/users/index" if logged_in?
+    flash[:notice] = 'you must be logged in to view that page'
+    redirect '/login'
   end
 
   # GET: /signup
@@ -16,7 +18,8 @@ class UsersController < ApplicationController
 
   # POST: /signup
   post '/signup' do
-    redirect '/users'
+    @user = User.create(params)
+    redirect "/users/#{@user.slug}"
   end
 
   # POST: /login
@@ -24,7 +27,7 @@ class UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
     if @user&.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect "/users/#{@user.id}"
+      redirect "/users/#{@user.slug}"
     end
     flash[:error] = 'incorrect username or password'
     redirect '/login'
@@ -36,23 +39,27 @@ class UsersController < ApplicationController
     redirect '/'
   end
 
-  # GET: /users/5
-  get '/users/:id' do
-    @user = User.find(params[:id])
-    erb :"/users/show"
+  # GET: /users/guy
+  get '/users/:slug' do
+    if logged_in?
+      @user = User.find_by_slug(params[:slug])
+      erb :"/users/show"
+    end
+    flash[:notice] = 'you must be logged in to view that page'
+    redirect '/login'
   end
 
-  # GET: /users/5/edit
-  get '/users/:id/edit' do
+  # GET: /users/guy/edit
+  get '/users/:slug/edit' do
     erb :"/users/edit"
   end
 
-  # PATCH: /users/5
+  # PATCH: /users/guy
   patch '/users/:id' do
     redirect '/users/:id'
   end
 
-  # DELETE: /users/5/delete
+  # DELETE: /users/guy/delete
   delete '/users/:id/delete' do
     redirect '/users'
   end
