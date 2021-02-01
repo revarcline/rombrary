@@ -32,7 +32,7 @@ class GamesController < ApplicationController
       @gamelist = Game.where(console_id: @obj.id)
     when 'publisher'
       @obj = Publisher.find_by_slug(@slug)
-      @gamelist = Game.where(publisher_id: @obj.id)
+      @gamelist = Game.joins(:game_publishers).where(game_publishers: { publisher: @obj.id })
     end
     erb :'/games/show_attr'
   end

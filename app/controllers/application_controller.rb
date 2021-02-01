@@ -19,5 +19,9 @@ class ApplicationController < Sinatra::Base
     def current_user
       @current_user ||= User.find(session[:user_id]) if session[:user_id]
     end
+
+    def created_by_current?(game)
+      game.created_by == current_user
+    end
   end
 end

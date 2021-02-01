@@ -9,6 +9,7 @@ hack = Region.create(name: 'HACK')
 snes = Console.create(name: 'SNES')
 nes = Console.create(name: 'NES')
 gba = Console.create(name: 'GBA')
+gbc = Console.create(name: 'GBC')
 psx = Console.create(name: 'PSX')
 gen = Console.create(name: 'Genesis')
 
@@ -17,6 +18,7 @@ konami = Publisher.create(name: 'Konami')
 nintendo = Publisher.create(name: 'Nintendo')
 capcom = Publisher.create(name: 'Capcom')
 sega = Publisher.create(name: 'Sega')
+takemoto = Publisher.create(name: 'T. Takemoto')
 
 ## genres
 platform = Genre.create(name: 'Platformer')
@@ -25,67 +27,78 @@ stealth = Genre.create(name: 'Stealth')
 rpg = Genre.create(name: 'RPG')
 fighting = Genre.create(name: 'Fighting')
 
+## users
+alex = User.create(username: 'revarcline',
+                   email: 'alex@fake.com',
+                   password: 'stinker')
+
+bulb = User.create(username: 'bulbasaur',
+                   email: 'bulb@fake.com',
+                   password: 'stinker')
+
+char = User.create(username: 'charmander',
+                   email: 'char@fake.com',
+                   password: 'stinker')
+
 ## games
 mario = Game.create(name: 'Super Mario Bros',
-                    created_by: 2,
                     year: 1985,
                     genres: [action, platform],
                     regions: [jp],
                     console: nes,
-                    publisher: nintendo)
+                    publishers: [nintendo])
 
 sonic = Game.create(name: 'Sonic the Hedgehog 2',
-                    created_by: 3,
                     year: 1992,
                     genres: [action, platform],
                     regions: [us],
                     console: gen,
-                    publisher: sega)
+                    publishers: [sega])
+
+zelda_seasons = Game.create(name: 'Legend of Zelda: Oracle of Seasons',
+                            year: 2001,
+                            genres: [action, rpg],
+                            regions: [eu],
+                            console: gbc,
+                            publishers: [nintendo, capcom])
 
 kaizo = Game.create(name: 'Kaizo Mario World',
-                    created_by: 1,
                     year: 2007,
                     regions: [jp, hack],
                     genres: [action, platform],
                     console: snes,
-                    publisher: nintendo)
+                    publishers: [nintendo, takemoto])
 
 castlevania = Game.create(name: 'Castlevania: Aria of Sorrow',
-                          created_by: 1,
                           year: 2003,
                           regions: [eu],
                           genres: [action, platform, rpg],
                           console: gba,
-                          publisher: konami)
+                          publishers: [konami])
 
 street_fighter = Game.create(name: 'Street Fighter II',
-                             created_by: 2,
                              year: 1992,
                              regions: [us],
                              genres: [fighting],
                              console: snes,
-                             publisher: capcom)
+                             publishers: [capcom])
 
 mgs = Game.create(name: 'Metal Gear Solid',
-                  created_by: 3,
                   year: 1998,
                   regions: [eu],
                   genres: [stealth, action],
                   console: psx,
-                  publisher: konami)
+                  publishers: [konami])
 
 ## users
-User.create(username: 'revarcline',
-            email: 'alex@fake.com',
-            games: [mgs, castlevania, kaizo],
-            password: 'stinker')
+alex.update(games: [mgs, castlevania, kaizo, zelda_seasons])
+bulb.update(games: [street_fighter, mario, sonic])
+char.update(games: [sonic, kaizo, mgs, mario])
 
-User.create(username: 'bulbasaur',
-            email: 'bulb@fake.com',
-            games: [street_fighter, mario, sonic],
-            password: 'stinker')
-
-User.create(username: 'charmander',
-            email: 'char@fake.com',
-            games: [sonic, kaizo, mgs, mario],
-            password: 'stinker')
+mario.created_by = bulb
+sonic.created_by = char
+kaizo.created_by = char
+castlevania.created_by = alex
+street_fighter.created_by = bulb
+mgs.created_by = alex
+zelda_seasons.created_by = alex

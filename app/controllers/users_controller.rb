@@ -14,13 +14,20 @@ class UsersController < ApplicationController
     erb :'/users/login'
   end
 
-  # POST: /users
-  post '/users' do
+  # POST: /signup
+  post '/signup' do
     redirect '/users'
+  end
+
+  # POST: /login
+  post '/login' do
+    @user = User.find_by(username: params[:username])
+    redirect '/users/'
   end
 
   # GET: /users/5
   get '/users/:id' do
+    @user = User.find(params[:id])
     erb :"/users/show"
   end
 

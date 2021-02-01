@@ -112,3 +112,14 @@ params[term]
 https://github.com/mezis/fuzzily
 
 adding created_by as an integer, make helper method my_post? which checks against current user id
+more activerecord way is to add a boolean to the join
+
+model method created_by=(user)
+
+user_games where (user) and game = self
+
+shadow init
+attr_reader for created_by
+
+ok the code is in the model, this was a better way to do it! likely blog post fodder.
+
