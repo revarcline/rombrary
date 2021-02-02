@@ -1,12 +1,12 @@
-<h1>create a new game</h1>
+<h1>edit <%= @game.name %></h1>
 <br>
 
 <form action="/games" method="post">
   <h3>game name*: </h3>
-  <input type="text" name="game[name]" id="game_name">
+  <input type="text" name="game[name]" id="game_name" value="<%= @game.name %>">
   <br>
   <h3>year released*: </h3>
-  <input type="text" name="game[year]" id="game_year">
+  <input type="text" name="game[year]" id="game_year" value="<%= @game.year %>">
   <br>
   <br>
 
@@ -14,7 +14,8 @@
   <h3>console*:</h3>
   <select id="game_console" name="game[console]">
     <% Console.all.each do |console| %>
-      <option value="<%= console.id %>"><%= console.name %></option>
+      <option value="<%= console.id %>"
+    <%= 'selected' if console == @game.console %>><%= console.name %></option>
     <% end %>
     <option value="">add new console</option>
   </select><br>
@@ -26,7 +27,11 @@
 
   <h3>genre: </h3>
   <% Genre.order(:name).each do |genre| %>
-    <input id="<%= genre.name %>" type="checkbox" name="game[genres][]" value="<%= genre.id %>">
+    <input id="<%= genre.name %>"
+           type="checkbox"
+           name="game[genres][]"
+           value="<%= genre.id %>"
+           <%= 'checked' if @game.genres.include?(genre) %>>
     <label for="<%= genre.name %>"><%= genre.name %></label><br>
   <% end %><br>
   <label for="new_genre">add new genre:</label><br>
@@ -36,7 +41,11 @@
 
   <h3>publisher: </h3>
   <% Publisher.order(:name).each do |publisher| %>
-    <input id="<%= publisher.name %>" type="checkbox" name="game[publishers][]" value="<%= publisher.id %>">
+    <input id="<%= publisher.name %>"
+           type="checkbox"
+           name="game[publishers][]"
+           value="<%= publisher.id %>"
+           <%= 'checked' if @game.publishers.include?(publisher) %>>
     <label for="<%= publisher.name %>"><%= publisher.name %></label><br>
   <% end %><br>
   <label for="new_publisher">add new publisher:</label><br>
@@ -46,7 +55,11 @@
 
   <h3>region: </h3>
   <% Region.order(:name).each do |region| %>
-    <input id="<%= region.name %>" type="checkbox" name="game[regions][]" value="<%= region.id %>">
+    <input id="<%= region.name %>"
+           type="checkbox"
+           name="game[regions][]"
+           value="<%= region.id %>"
+           <%= 'checked' if @game.regions.include?(region) %>>
     <label for="<%= region.name %>"><%= region.name %></label><br>
   <% end %><br>
   <label for="new_region">add new region:</label><br>
@@ -55,7 +68,7 @@
   <br>
 
 
-  <input type="submit" value="create game">
+  <input type="submit" value="update game">
 </form>
 <br>
 <p>*required fields</p>

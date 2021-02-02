@@ -107,7 +107,16 @@ class GamesController < ApplicationController
 
   # GET: /games/5/edit
   get '/games/:id/edit' do
-    erb :"/games/edit.html"
+    @game = Game.find(params[:id])
+    if @game.created_by == current_user
+      erb :"/games/edit"
+    elsif logged_in?
+      flash[:notice] = "you must be logged in as #{@game.creaed_by} to edit that entry"
+      redirect "/games/#{@game.id}"
+    else
+      flash[:notice] = 'you must be logged in to view this page'
+      redirect '/login'
+    end
   end
 
   # PATCH: /games/5
