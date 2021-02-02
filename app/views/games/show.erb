@@ -1,4 +1,7 @@
 <h1 class="line"><%= @game.name %></h1>
+
+<h3>released: <%= @game.year %></h3>
+
 <h3>console: <a href="/games/by/console/<%= @game.console.slug %>">
     <%= @game.console.name %>
   </a></h3>

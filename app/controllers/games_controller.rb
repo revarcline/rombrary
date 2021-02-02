@@ -14,7 +14,7 @@ class GamesController < ApplicationController
     redirect '/games'
   end
 
-  # GET: /games/genre/fighting
+  # GET: /games/by/genre/fighting
   get '/games/by/:attr/:slug' do
     @slug = params[:slug]
     @attr = params[:attr]
@@ -34,7 +34,7 @@ class GamesController < ApplicationController
     erb :'/games/show_attr'
   end
 
-  # GET /games/genre
+  # GET /games/by/genre
   get '/games/by/:attr' do
     @attr = params[:attr]
     case @attr
