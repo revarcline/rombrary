@@ -1,0 +1,6 @@
+<h1>find games by <%= @attr %></h1>
+
+<% @list.each do |item| %>
+  <h2><a href="/games/by/<%= @attr %>/<%= item.slug %>">
+      <%= item.name %></a></h2>
+<% end %>

@@ -37,6 +37,22 @@ class GamesController < ApplicationController
     erb :'/games/show_attr'
   end
 
+  # GET /games/genre
+  get '/games/by/:attr' do
+    @attr = params[:attr]
+    case @attr
+    when 'genre'
+      @list = Genre.all
+    when 'region'
+      @list = Region.all
+    when 'console'
+      @list = Console.all
+    when 'publisher'
+      @list = Publisher.all
+    end
+    erb :'/games/index_attr'
+  end
+
   # GET: /games/5
   get '/games/:id' do
     @game = Game.find(params[:id])
