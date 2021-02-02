@@ -6,12 +6,59 @@ class GamesController < ApplicationController
 
   # GET: /games/new
   get '/games/new' do
-    erb :"/games/new"
+    if logged_in?
+      erb :"/games/new"
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 
   # POST: /games
   post '/games' do
-    redirect '/games'
+    if logged_in?
+      # add new console to console params
+      if params[:console][:name] != '' && params[:game][:console] == ''
+        @console = Console.create(params[:console])
+        params[:game][:console] = @console
+      elsif params[:game][:console] != ''
+        params[:game][:console] = Console.find(params[:game][:console])
+      end
+
+      # remap params
+      params[:game][:genres] = params[:game][:genres].map { |id| Genre.find(id) }
+      params[:game][:publishers] = params[:game][:publishers].map { |id| Publisher.find(id) }
+      params[:game][:regions] = params[:game][:regions].map { |id| Region.find(id) }
+
+      # add new item to other params
+      unless params[:genre][:name] == ''
+        @genre = Genre.create(params[:genre])
+        params[:game][:genres] << @genre
+      end
+
+      unless params[:publisher][:name] == ''
+        @publisher = Publisher.create(params[:publisher])
+        params[:game][:publishers] << @publisher
+      end
+
+      unless params[:region][:name] == ''
+        @region = Region.create(params[:region])
+        params[:game][:regions] << @regions
+      end
+
+      if params[:game][:name] == '' || params[:game][:year] == '' || params[:game][:console] == ''
+        flash[:notice] = 'please fill out required fields'
+        redirect '/games/new'
+      end
+
+      @game = Game.create(params[:game])
+
+      @game.created_by = current_user
+      redirect "/games/#{@game.id}"
+    else
+      flash[:notice] = 'you must be logged in to create a new game'
+      redirect '/login'
+    end
   end
 
   # GET: /games/by/genre/fighting

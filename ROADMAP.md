@@ -119,7 +119,7 @@ model method created_by=(user)
 user_games where (user) and game = self
 
 shadow init
-attr_reader for created_by
+attr_reader for created_by (wrong! all are custom defined)
 
 ok the code is in the model, this was a better way to do it! likely blog post fodder.
 i will have to see how well it works first though
@@ -130,3 +130,6 @@ ask about security and using eval for my case statement
 
 create delete if unused module after delete in place - call "destroy_orphans"
 maybe helper method to iterate through all classes
+
+
+OK SO delete method (hidden form? idek) is borked, go to office hours

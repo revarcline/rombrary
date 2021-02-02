@@ -18,6 +18,22 @@
     line-height: 18px;
   }
 
+  input {
+    background-color: #3c3836;
+    border: #928374;
+    border-radius: 4px;
+    color: #ebdbb2;
+    padding: 5px;
+  }
+
+  select {
+    background-color: #3c3836;
+    border: #928374;
+    border-radius: 4px;
+    color: #ebdbb2;
+    padding: 5px;
+  }
+
   .wrapper {
     background: #282828;
     margin: 16px auto;
