@@ -18,8 +18,13 @@ class UsersController < ApplicationController
 
   # POST: /signup
   post '/signup' do
-    @user = User.create(params)
-    redirect "/users/#{@user.slug}"
+    if params.values.include?('')
+      flash[:error] = 'please fill out all fields'
+      redirect '/signup'
+    else
+      @user = User.create(params)
+      redirect "/users/#{@user.slug}"
+    end
   end
 
   # POST: /login
