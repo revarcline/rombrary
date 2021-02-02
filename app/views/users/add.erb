@@ -1,0 +1,9 @@
+<h1>add game to my library</h1>
+<h3>would you like to add <%= @game.name %></a> - 
+      <%= @game.console.name %>
+      (<%= @game.regions.map(&:name).join('/') %>)
+      to your library?
+</h3>
+<form action="/users/<%= @user.slug %>/<%= @game.id %>" method="post">
+  <input type="submit" value="add game">
+</form>

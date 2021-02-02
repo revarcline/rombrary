@@ -1,0 +1,10 @@
+<h1>remove game from my library</h1>
+<h3>would you like remove <%= @game.name %></a> - 
+      <%= @game.console.name %>
+      (<%= @game.regions.map(&:name).join('/') %>)
+      from your library?
+</h3>
+<form action="/users/<%= @user.slug %>/<%= @game.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="remove game">
+</form>

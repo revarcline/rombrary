@@ -47,7 +47,6 @@ ActiveRecord::Schema.define(version: 2021_02_01_202132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "year"
-    t.string "slug"
   end
 
   create_table "genres", force: :cascade do |t|

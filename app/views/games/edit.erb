@@ -1,1 +1,61 @@
-<h1>Insert the form to edit an instance of your model here.</h1>
+<h1>create a new game</h1>
+<br>
+
+<form action="/games" method="post">
+  <h3>game name*: </h3>
+  <input type="text" name="game[name]" id="game_name">
+  <br>
+  <h3>year released*: </h3>
+  <input type="text" name="game[year]" id="game_year">
+  <br>
+  <br>
+
+
+  <h3>console*:</h3>
+  <select id="game_console" name="game[console]">
+    <% Console.all.each do |console| %>
+      <option value="<%= console.id %>"><%= console.name %></option>
+    <% end %>
+    <option value="">add new console</option>
+  </select><br>
+  <br>
+  <label for="new_console">new console (if selected):</label><br>
+  <input id="new_console" type="text" name="console[name]"><br>
+  <br>
+
+
+  <h3>genre: </h3>
+  <% Genre.order(:name).each do |genre| %>
+    <input id="<%= genre.name %>" type="checkbox" name="game[genres][]" value="<%= genre.id %>">
+    <label for="<%= genre.name %>"><%= genre.name %></label><br>
+  <% end %><br>
+  <label for="new_genre">add new genre:</label><br>
+  <input id="new_genre" type="text" name="genre[name]"><br>
+  <br>
+
+
+  <h3>publisher: </h3>
+  <% Publisher.order(:name).each do |publisher| %>
+    <input id="<%= publisher.name %>" type="checkbox" name="game[publishers][]" value="<%= publisher.id %>">
+    <label for="<%= publisher.name %>"><%= publisher.name %></label><br>
+  <% end %><br>
+  <label for="new_publisher">add new publisher:</label><br>
+  <input id="new_publisher" type="text" name="publisher[name]"><br>
+  <br>
+
+
+  <h3>region: </h3>
+  <% Region.order(:name).each do |region| %>
+    <input id="<%= region.name %>" type="checkbox" name="game[regions][]" value="<%= region.id %>">
+    <label for="<%= region.name %>"><%= region.name %></label><br>
+  <% end %><br>
+  <label for="new_region">add new region:</label><br>
+  <input id="new_region" type="text" name="region[name]"><br>
+  <br>
+  <br>
+
+
+  <input type="submit" value="create game">
+</form>
+<br>
+<p>*required fields</p>

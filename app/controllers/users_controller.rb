@@ -60,12 +60,23 @@ class UsersController < ApplicationController
 
   # GET: /users/guy/edit
   get '/users/:slug/edit' do
-    erb :"/users/edit"
+    @user = User.find_by_slug(params[:slug])
+    if @user == current_user
+      erb :"/users/edit"
+    elsif logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 
   # PATCH: /users/guy
   patch '/users/:slug' do
-    redirect '/users/:slug'
+    @user = User.find_by_slug(params[:slug])
+    # placeholder for updating user
+    redirect "/users/#{@user.slug}"
   end
 
   # GET: /users/guy/delete
@@ -93,9 +104,71 @@ class UsersController < ApplicationController
 
   # GET /users/guy/add/4
   get '/users/:slug/add/:id' do
+    @user = User.find_by_slug(params[:slug])
+    if current_user == @user
+      @game = Game.find(params[:id])
+      erb :'/users/add'
+    elsif logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 
   # GET /users/guy/remove/4
   get '/users/:slug/remove/:id' do
+    @user = User.find_by_slug(params[:slug])
+    if current_user == @user
+      @game = Game.find(params[:id])
+      erb :'/users/remove'
+    elsif logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
+  end
+
+  # POST /users/guy/4
+  post '/users/:slug/:id' do
+    @user = User.find_by_slug(params[:slug])
+    @game = Game.find(params[:id])
+    if current_user == @user && !current_user.games.include?(@game)
+      @user.games << @game
+      @user.save
+      redirect "/users/#{@user.slug}"
+    elsif current_user == @user && current_user.games.include?(@game)
+      flash[:notice] = "#{@user.username} already owns #{@game.name}"
+      redirect "/users/#{@user.slug}"
+    elsif current_user != @user && logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
+  end
+
+  # DELETE /users/guy/4
+  delete '/users/:slug/:id' do
+    @user = User.find_by_slug(params[:slug])
+    @game = Game.find(params[:id])
+    if current_user == @user && current_user.games.include?(@game)
+      @user.games.delete(@game)
+      @user.save
+      redirect "/users/#{@user.slug}"
+    elsif current_user == @user && !current_user.games.include?(@game)
+      flash[:notice] = "#{@user.username} doesn't own #{@game.name}"
+      redirect "/users/#{@user.slug}"
+    elsif current_user != @user && logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 end

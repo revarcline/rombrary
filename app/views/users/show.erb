@@ -10,7 +10,7 @@
       <%= game.console.name %>
       (<%= game.regions.map(&:name).join('/') %>)
       <% if @user == current_user%>
-        <a href="/users/<%= current_user%>/remove/<%= game.id %>/">x</a>
+        <a href="/users/<%= current_user.slug %>/remove/<%= game.id %>">x</a>
         <% if game.created_by == current_user %>
           <a href="/games/<%= game.id %>/edit">edit</a>
           <a href="/games/<%= game.id %>/delete">delete</a>
