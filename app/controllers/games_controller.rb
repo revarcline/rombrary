@@ -121,11 +121,67 @@ class GamesController < ApplicationController
 
   # PATCH: /games/5
   patch '/games/:id' do
-    redirect '/games/:id'
+    @game = Game.find(params[:id])
+
+    if logged_in? && @game.created_by == current_user
+      # add new console to console params
+      if params[:console][:name] != '' && params[:game][:console] == ''
+        @console = Console.create(params[:console])
+        params[:game][:console] = @console
+      elsif params[:game][:console] != ''
+        params[:game][:console] = Console.find(params[:game][:console])
+      end
+
+      # remap params
+      params[:game][:genres] = params[:game][:genres].map { |id| Genre.find(id) }
+      params[:game][:publishers] = params[:game][:publishers].map { |id| Publisher.find(id) }
+      params[:game][:regions] = params[:game][:regions].map { |id| Region.find(id) }
+
+      # add new item to other params
+      unless params[:genre][:name] == ''
+        @genre = Genre.create(params[:genre])
+        params[:game][:genres] << @genre
+      end
+
+      unless params[:publisher][:name] == ''
+        @publisher = Publisher.create(params[:publisher])
+        params[:game][:publishers] << @publisher
+      end
+
+      unless params[:region][:name] == ''
+        @region = Region.create(params[:region])
+        params[:game][:regions] << @regions
+      end
+
+      if params[:game][:name] == '' || params[:game][:year] == '' || params[:game][:console] == ''
+        flash[:notice] = 'please fill out required fields'
+        redirect '/games/new'
+      end
+
+      @game = Game.update(params[:game])
+
+      redirect "/games/#{@game.id}"
+    else
+      flash[:notice] = "you must be logged in as #{@game.created_by} to do that"
+      redirect '/'
+    end
+  end
+
+  # GET: /games/5/delete
+  get '/games/:id/delete' do
+    @game = Game.find(params[:id])
+    if @game.created_by == current_user
+      erb :'/games/delete'
+    else
+      flash[:notice] = "you must be logged in as #{@game.created_by} to do that"
+      redirect '/'
+    end
   end
 
   # DELETE: /games/5/delete
-  delete '/games/:id/delete' do
+  delete '/games/:id' do
+    @game = Game.find(params[:id])
+    @game.destroy
     redirect '/games'
   end
 end
