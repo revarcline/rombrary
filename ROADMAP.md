@@ -122,4 +122,10 @@ shadow init
 attr_reader for created_by
 
 ok the code is in the model, this was a better way to do it! likely blog post fodder.
+i will have to see how well it works first though
 
+possibly add logic to remove a category when it is unused
+
+ask about security and using eval for my case statement
+
+create delete if unused module after delete in place

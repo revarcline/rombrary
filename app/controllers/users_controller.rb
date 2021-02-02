@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
   # GET: /users
   get '/users' do
-    erb :"/users/index" if logged_in?
-    flash[:notice] = 'you must be logged in to view that page'
-    redirect '/login'
+    if logged_in?
+      erb :"/users/index"
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 
   # GET: /signup

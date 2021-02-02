@@ -1,1 +1,6 @@
-<h1>This is the Model's index page.</h1>
+<h1>all users</h1>
+
+<% User.order(:username).each do |user| %>
+  <h3><a href="/users/<%= user.slug %>">
+      <%= user.username %></a></h3>
+<% end %>
