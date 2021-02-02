@@ -90,4 +90,12 @@ class UsersController < ApplicationController
       redirect '/login'
     end
   end
+
+  # GET /users/guy/add/4
+  get '/users/:slug/add/:id' do
+  end
+
+  # GET /users/guy/remove/4
+  get '/users/:slug/remove/:id' do
+  end
 end
