@@ -128,4 +128,5 @@ possibly add logic to remove a category when it is unused
 
 ask about security and using eval for my case statement
 
-create delete if unused module after delete in place
+create delete if unused module after delete in place - call "destroy_orphans"
+maybe helper method to iterate through all classes

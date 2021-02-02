@@ -64,22 +64,23 @@ class UsersController < ApplicationController
   end
 
   # PATCH: /users/guy
-  patch '/users/:id' do
-    redirect '/users/:id'
+  patch '/users/:slug' do
+    redirect '/users/:slug'
   end
 
-  # get: /users/guy/delete
-  get '/users/:id/delete' do
-    @user = User.find(params[:id])
-    if session[:user_id] == params[:id]
+  # GET: /users/guy/delete
+  get '/users/:slug/delete' do
+    @user = User.find_by_slug(params[:slug])
+    if current_user == @user
       erb :'/users/delete'
     else
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
       redirect '/'
     end
   end
+
   # DELETE: /users/guy/delete
-  delete '/users/:id/delete' do
+  delete '/users/:slug/delete' do
     redirect '/users'
   end
 end

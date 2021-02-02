@@ -1,0 +1,6 @@
+<h1>are you sure you want to delete <%= @user.username %>?</h1>
+<h3>this will permanently delete the entire library and any orphaned games</h3>
+<form action="/delete/<%= @user.slug %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" value="delete">
+</form>
