@@ -23,17 +23,14 @@ class GamesController < ApplicationController
     case @attr
     when 'genre'
       @obj = Genre.find_by_slug(@slug)
-      @gamelist = Game.joins(:game_genres).where(game_genres: { genre_id: @obj.id })
     when 'region'
       @obj = Region.find_by_slug(@slug)
-      @gamelist = Game.joins(:game_regions).where(game_regions: { region: @obj.id })
     when 'console'
       @obj = Console.find_by_slug(@slug)
-      @gamelist = Game.where(console_id: @obj.id)
     when 'publisher'
       @obj = Publisher.find_by_slug(@slug)
-      @gamelist = Game.joins(:game_publishers).where(game_publishers: { publisher: @obj.id })
     end
+    @gamelist = @obj.games
     erb :'/games/show_attr'
   end
 
