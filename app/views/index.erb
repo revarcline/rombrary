@@ -1,4 +1,7 @@
 <h1>welcome to rombrary!</h1>
+<% if logged_in? %>
+<h2><a href="/users">all users</a></h2>
+<% end %>
 <h2><a href="/games">all games</a></h2>
 <h2><a href="/games/by/console">by console</a></h2>
 <h2><a href="/games/by/region">by region</a></h2>
