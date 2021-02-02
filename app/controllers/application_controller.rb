@@ -3,11 +3,13 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
   enable :sessions
   use Rack::Flash
+  Dotenv.load
+  Dotenv.require_keys('SESSION_SECRET')
 
   configure do
     set :public_folder, 'public'
     set :views, 'app/views'
-    set :session_secret, ENV['SESSION_SECRET'] { SecureRandom.hex(64) }
+    set :session_secret, ENV['SESSION_SECRET']
   end
 
   get '/' do

@@ -11,3 +11,4 @@ ActiveRecord::Base.establish_connection(
 require_all 'app/models/concerns'
 require './app/controllers/application_controller'
 require_all 'app'
+Dotenv.load

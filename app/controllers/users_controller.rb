@@ -75,7 +75,7 @@ class UsersController < ApplicationController
       erb :'/users/delete'
     else
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
-      redirect '/'
+      redirect '/login'
     end
   end
 
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
   delete '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     if current_user == @user
-      @user.destroy
+      @user.delete
       redirect '/'
     else
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
