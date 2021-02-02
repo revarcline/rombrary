@@ -11,3 +11,10 @@
       (<%= game.regions.map(&:name).join('/') %>)
   <% end %>
 </div>
+<h3>
+  <% if @user.id == session[:user_id] %>
+      <a href="/users/<%= @user.slug %>/edit">edit user</a> - 
+      <a href="/users/<%= @user.slug %>/delete">delete user</a>
+    <% end %>
+</h3>
+

@@ -68,6 +68,16 @@ class UsersController < ApplicationController
     redirect '/users/:id'
   end
 
+  # get: /users/guy/delete
+  get '/users/:id/delete' do
+    @user = User.find(params[:id])
+    if session[:user_id] == params[:id]
+      erb :'/users/delete'
+    else
+      flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
+      redirect '/'
+    end
+  end
   # DELETE: /users/guy/delete
   delete '/users/:id/delete' do
     redirect '/users'
