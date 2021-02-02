@@ -1,19 +1,27 @@
 <h1 class="line"><%= @game.name %></h1>
-<h2>console: <a href="/games/by/console/<%= @game.console.slug %>">
+<h3>console: <a href="/games/by/console/<%= @game.console.slug %>">
     <%= @game.console.name %>
-  </a></h2>
+  </a></h3>
 
-<h2>region: <% @game.regions.each do |region| %>
-  <a href="/games/by/region/<%= region.name %>"><%= region.name %></a> 
-<% end %></h2>
+<h3>region: <% @game.regions.each do |region| %>
+  <a href="/games/by/region/<%= region.slug %>"><%= region.name %></a> 
+<% end %></h3>
 
-<h2>publisher: <% @game.publishers.each do |publisher| %>
-  <a href="/games/by/publisher/<%= publisher.name %>"><%= publisher.name %></a> 
-<% end %></h2>
+<h3>publisher: <% @game.publishers.each do |publisher| %>
+  <a href="/games/by/publisher/<%= publisher.slug %>"><%= publisher.name %></a> 
+<% end %></h3>
 
-<h2>genres: <% @game.genres.each do |genre| %>
-  <a href="/games/by/genre/<%= genre.name %>"><%= genre.name %></a> 
-<% end %></h2>
+<h3>genres: <% @game.genres.each do |genre| %>
+  <a href="/games/by/genre/<%= genre.slug%>"><%= genre.name %></a> 
+<% end %></h3>
 
-<%#if logged in link to other users with this game%>
+<% if logged_in? %>
+  <br>
+  <br>
+  <h2>users with this game:</h2>
+  <% @game.users.each do |user| %>
+    <h3><a href="/users/<%= user.slug %>"><%= user.username %></a></h3>
+  <% end %>
+<% end %>
+
 <%#if created by session user link to edit and delete%>
