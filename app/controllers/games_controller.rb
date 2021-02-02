@@ -53,6 +53,8 @@ class GamesController < ApplicationController
 
       @game = Game.create(params[:game])
 
+      current_user.games << @game
+      current_user.save
       @game.created_by = current_user
       redirect "/games/#{@game.id}"
     else
