@@ -12,7 +12,7 @@ git clone https://github.com/revarcline/rombrary.git
 cd rombrary
 bundle install
 rake db:migrate
-rake db:seed
+rake db:seed # optional, but has useful example data
 echo -e > .env "SESSION_SECRET=$(ruby -e "require 'sysrandom/securerandom'; puts SecureRandom.hex(64)")"
 shotgun
 ```
