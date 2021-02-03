@@ -20,6 +20,12 @@
 
 <% if logged_in? %>
   <br>
+  <% if current_user.games.include?(@game) %>
+    <a href="/users/<%= current_user.slug %>/remove/<%= @game.id %>">remove from library</a><br>
+  <% else %>
+    <a href="/users/<%= current_user.slug %>/add/<%= @game.id %>">add to library</a><br>
+  <% end %>
+
   <br>
   <h2>users with this game:</h2>
   <% @game.users.each do |user| %>
