@@ -154,6 +154,27 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/guy/4
+  delete '/users/:slug/:id' do
+    @user = User.find_by_slug(params[:slug])
+    @game = Game.find(params[:id])
+    if current_user == @user && current_user.games.include?(@game)
+      ug = UserGame.where(user: @user, game: @game)
+      # pass created_by to next user with game or delete record if orphaned
+      ug[0].destroy
+      redirect "/users/#{@user.slug}"
+    elsif current_user == @user && !current_user.games.include?(@game)
+      flash[:notice] = "#{@user.username} doesn't own #{@game.name}"
+      redirect "/users/#{@user.slug}"
+    elsif current_user != @user && logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect '/'
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
+  end
+
   # POST /users/guy/4
   post '/users/:slug/:id' do
     @user = User.find_by_slug(params[:slug])
@@ -172,26 +193,6 @@ class UsersController < ApplicationController
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
       redirect '/'
     # logged out sent to login
-    else
-      flash[:notice] = 'you must be logged in to view that page'
-      redirect '/login'
-    end
-  end
-
-  # DELETE /users/guy/4
-  delete '/users/:slug/:id' do
-    @user = User.find_by_slug(params[:slug])
-    @game = Game.find(params[:id])
-    if current_user == @user && current_user.games.include?(@game)
-      @user.games.delete(@game)
-      @user.save
-      redirect "/users/#{@user.slug}"
-    elsif current_user == @user && !current_user.games.include?(@game)
-      flash[:notice] = "#{@user.username} doesn't own #{@game.name}"
-      redirect "/users/#{@user.slug}"
-    elsif current_user != @user && logged_in?
-      flash[:notice] = "you must be logged in as #{@user.username} to do that"
-      redirect '/'
     else
       flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
