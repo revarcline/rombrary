@@ -159,11 +159,10 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     @game = Game.find(params[:id])
     if current_user == @user && current_user.games.include?(@game)
-      ug = UserGame.where(user: @user, game: @game)
+      @user.games.destroy(@game)
       # pass created_by to next user with game or delete orphan
-      ug[0].destroy
-      if (ug_new = UserGame.where(game: @game)) != []
-        ug_new[0].created_by = true
+      if (ug = UserGame.where(game: @game)) != []
+        ug[0].created_by = true
       else
         @game.destroy
       end
