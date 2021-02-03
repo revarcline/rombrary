@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   # GET: /users/guy/edit
   get '/users/:slug/edit' do
     @user = User.find_by_slug(params[:slug])
-    if @user == current_user
+    if @user == current_user || current_user.admin?
       erb :"/users/edit"
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
@@ -98,7 +98,7 @@ class UsersController < ApplicationController
   # GET: /users/guy/delete
   get '/users/:slug/delete' do
     @user = User.find_by_slug(params[:slug])
-    if current_user == @user
+    if current_user == @user || current_user.admin?
       erb :'/users/delete'
     else
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
   # DELETE: /users/guy
   delete '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
-    if current_user == @user
+    if current_user == @user || current_user.admin?
       @user.delete
       redirect '/'
     else
@@ -122,7 +122,7 @@ class UsersController < ApplicationController
   get '/users/:slug/add/:id' do
     @user = User.find_by_slug(params[:slug])
     # can add game to own logged in account
-    if current_user == @user
+    if current_user == @user || current_user.admin?
       @game = Game.find(params[:id])
       erb :'/users/add'
     # redirect wrong user
@@ -140,7 +140,7 @@ class UsersController < ApplicationController
   get '/users/:slug/remove/:id' do
     @user = User.find_by_slug(params[:slug])
     # only allow logged in user to remove game from library
-    if current_user == @user
+    if current_user == @user || current_user.admin?
       @game = Game.find(params[:id])
       erb :'/users/remove'
     # wrong user redirected

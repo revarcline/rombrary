@@ -29,6 +29,7 @@ fighting = Genre.create(name: 'Fighting')
 
 ## users
 alex = User.create(username: 'revarcline',
+                   admin: true,
                    email: 'alex@fake.com',
                    password: 'stinker')
 

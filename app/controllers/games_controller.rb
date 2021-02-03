@@ -108,7 +108,7 @@ class GamesController < ApplicationController
   # GET: /games/5/edit
   get '/games/:id/edit' do
     @game = Game.find(params[:id])
-    if @game.created_by == current_user
+    if @game.created_by == current_user || current_user.admin?
       erb :"/games/edit"
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@game.creaed_by} to edit that entry"
@@ -123,7 +123,7 @@ class GamesController < ApplicationController
   patch '/games/:id' do
     @game = Game.find(params[:id])
 
-    if logged_in? && @game.created_by == current_user
+    if logged_in? && (@game.created_by == current_user || current_user.admin?)
       # add new console to console params
       if params[:console][:name] != '' && params[:game][:console] == ''
         @console = Console.create(params[:console])
@@ -170,7 +170,7 @@ class GamesController < ApplicationController
   # GET: /games/5/delete
   get '/games/:id/delete' do
     @game = Game.find(params[:id])
-    if @game.created_by == current_user
+    if @game.created_by == current_user || current_user.admin?
       erb :'/games/delete'
     else
       flash[:notice] = "you must be logged in as #{@game.created_by} to do that"

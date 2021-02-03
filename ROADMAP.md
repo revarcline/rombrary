@@ -144,4 +144,7 @@ are join tables read only? (this seems fixed)
 
 it appears my edit form is not working as a patch
 
-maybe create an admin view? urgh. automated orphan collection is less easy.
+maybe create an admin view? yes, where you can run automated orphan collection and delete params
+
+ok add admin then
+(pretty painless)
