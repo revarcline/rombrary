@@ -18,7 +18,10 @@ class Game < ActiveRecord::Base
   end
 
   def created_by
-    ug = UserGame.where(game_id: id, created_by: true)
-    User.find(ug.first.user_id)
+    User.find(UserGame.where(game_id: id, created_by: true)[0].user_id)
+  end
+
+  def created_by?(user)
+    created_by == user
   end
 end

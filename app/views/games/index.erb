@@ -17,7 +17,7 @@
         <% else %>
           <a href="/users/<%= current_user.slug %>/add/<%= game.id %>">+</a>
         <% end %>
-        <% if game.created_by == current_user || current_user.admin? %>
+        <% if game.created_by?(current_user) || current_user.admin? %>
           <a href="/games/<%= game.id %>/edit">edit</a>
           <a href="/games/<%= game.id %>/delete">delete</a>
         <% end %>
