@@ -58,6 +58,22 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /games/by/genre
+  get '/games/by/:attr' do
+    @attr = params[:attr]
+    case @attr
+    when 'genre'
+      @list = Genre.all
+    when 'region'
+      @list = Region.all
+    when 'console'
+      @list = Console.all
+    when 'publisher'
+      @list = Publisher.all
+    end
+    erb :'/games/index_attr'
+  end
+
   # GET: /users/guy/edit
   get '/users/:slug/edit' do
     @user = User.find_by_slug(params[:slug])
@@ -105,12 +121,15 @@ class UsersController < ApplicationController
   # GET /users/guy/add/4
   get '/users/:slug/add/:id' do
     @user = User.find_by_slug(params[:slug])
+    # can add game to own logged in account
     if current_user == @user
       @game = Game.find(params[:id])
       erb :'/users/add'
+    # redirect wrong user
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
       redirect '/'
+    # logged out user go away
     else
       flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
@@ -120,12 +139,15 @@ class UsersController < ApplicationController
   # GET /users/guy/remove/4
   get '/users/:slug/remove/:id' do
     @user = User.find_by_slug(params[:slug])
+    # only allow logged in user to remove game from library
     if current_user == @user
       @game = Game.find(params[:id])
       erb :'/users/remove'
+    # wrong user redirected
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
       redirect '/'
+    # logged out sent to login
     else
       flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
@@ -136,16 +158,20 @@ class UsersController < ApplicationController
   post '/users/:slug/:id' do
     @user = User.find_by_slug(params[:slug])
     @game = Game.find(params[:id])
+    # add game to user games if correct user
     if current_user == @user && !current_user.games.include?(@game)
       @user.games << @game
       @user.save
       redirect "/users/#{@user.slug}"
+    # avoid duplication
     elsif current_user == @user && current_user.games.include?(@game)
       flash[:notice] = "#{@user.username} already owns #{@game.name}"
       redirect "/users/#{@user.slug}"
+    # redirect wrong user
     elsif current_user != @user && logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
       redirect '/'
+    # logged out sent to login
     else
       flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
