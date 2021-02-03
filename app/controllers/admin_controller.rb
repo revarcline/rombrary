@@ -10,7 +10,7 @@ class AdminController < ApplicationController
   end
 
   # DELETE: /admin/delete_params
-  delete '/admin/delete_orphans' do
+  delete '/admin/delete_params' do
     if current_user.admin?
       Console.where(id: params[:consoles]).destroy_all
       Genre.where(id: params[:genres]).destroy_all

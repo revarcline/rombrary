@@ -1,14 +1,17 @@
-<h1>edit user</h1>
+<h1>edit <%= @user.username %></h1>
 
 <form action="/users/<%= @user.slug %>" method="post">
   <input type="hidden" name="_method" value="patch">
-  <label for="username">username: </label>
-  <input type="text" name="user[username]" value="<%= @user.username %>"><br>
-  <label for="email">email: </label>
+  <label for="email">email*: </label>
   <input type="text" name="user[email]" value="<%= @user.email %>"><br>
-  <label for="password">old password: </label>
-  <input type="password" name="password[old]"><br>
+
+<br>
+
+  <label for="password">current password*: </label>
+  <input type="password" name="old_password"><br>
   <label for="password">new password: </label>
-  <input type="password" name="password[new]"><br>
+  <input type="password" name="user[password]"><br>
+  <label for="password">new password (confirm): </label>
+  <input type="password" name="user[password_confirmation]"><br>
   <input type="submit" value="update user">
 </form>

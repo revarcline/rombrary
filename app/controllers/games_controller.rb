@@ -14,6 +14,13 @@ class GamesController < ApplicationController
     end
   end
 
+  # POST: /games/search
+  post '/games/search' do
+    @search = params[:search]
+    @results = Game.where('name like ?', "%#{params[:search]}%")
+    erb :"/games/search"
+  end
+
   # POST: /games
   post '/games' do
     if logged_in?
@@ -158,7 +165,7 @@ class GamesController < ApplicationController
         redirect '/games/new'
       end
 
-      @game = Game.update(params[:game])
+      @game.update(params[:game])
 
       redirect "/games/#{@game.id}"
     else

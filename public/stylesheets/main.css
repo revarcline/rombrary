@@ -19,7 +19,7 @@
   }
 
   input {
-    background-color: #3c3836;
+    background-color: #1d2021;
     border: #928374;
     border-radius: 4px;
     color: #ebdbb2;
@@ -27,7 +27,7 @@
   }
 
   select {
-    background-color: #3c3836;
+    background-color: #1d2021;
     border: #928374;
     border-radius: 4px;
     color: #ebdbb2;
@@ -70,9 +70,10 @@
     color: #458588;
   }
 
-  a:visited {
-    color: #b16286;
-  }
+  /*it's kind of ugly*/
+  /*a:visited {*/
+  /*color: #b16286;*/
+  /*}*/
 
   a:hover {
     color: #83a698;

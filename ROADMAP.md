@@ -149,3 +149,13 @@ maybe create an admin view? yes, where you can run automated orphan collection a
 ok add admin then
 (pretty painless)
 (it works except for patch/delete requests still being borked)
+
+
+use Rack::MethodOverride - this was the real stinker
+
+ok, next thing:
+scrape for cover art, add to db for each game
+not doing this bc api key and blah blah
+
+search function!
+

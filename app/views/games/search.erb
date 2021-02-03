@@ -1,0 +1,24 @@
+<h1>games matching "<%= @search %>"</h1>
+
+<div class="gamelist">
+  <% @results.each do |game| %>
+    <div class="gamelink">
+      <a href="/games/<%= game.id %>">
+        <%= game.name %></a> - 
+      <%= game.console.name %>
+      (<%= game.regions.map(&:name).join('/') %>)
+      <% if logged_in? %>
+        <% if current_user.games.include?(game) %>
+          <a href="/users/<%= current_user.slug %>/remove/<%= game.id %>">x</a>
+        <% else %>
+          <a href="/users/<%= current_user.slug %>/add/<%= game.id %>">+</a>
+        <% end %>
+        <% if game.created_by == current_user %>
+          <a href="/games/<%= game.id %>/edit">edit</a>
+          <a href="/games/<%= game.id %>/delete">delete</a>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <h2><%= 'nothing to see here' if @results.empty? %></h1> 
+</div>

@@ -3,6 +3,7 @@ require './config/environment'
 class ApplicationController < Sinatra::Base
   enable :sessions
   use Rack::Flash
+  use Rack::MethodOverride
   Dotenv.load
   Dotenv.require_keys('SESSION_SECRET')
 

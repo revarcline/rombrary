@@ -24,8 +24,18 @@ class UsersController < ApplicationController
     if params.values.include?('')
       flash[:error] = 'please fill out all fields'
       redirect '/signup'
+    elsif User.find_by(username: params[:username])
+      flash[:error] = 'username is already taken'
+      redirect '/signup'
+    elsif User.find_by(email: params[:email])
+      flash[:error] = 'email is already taken'
+      redirect '/signup'
+    elsif params[:password] != params[:password_confirmation]
+      flash[:error] = 'password confirmation does not match'
+      redirect '/signup'
     else
       @user = User.create(params)
+      session[:user_id] = @user.id
       redirect "/users/#{@user.slug}"
     end
   end
@@ -91,8 +101,33 @@ class UsersController < ApplicationController
   # PATCH: /users/guy
   patch '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
-    # placeholder for updating user
-    redirect "/users/#{@user.slug}"
+    if @user == current_user || current_user.admin?
+      if !@user.authenticate(params[:old_password]) || !current_user.admin?
+        flash[:error] = 'current password is wrong'
+        redirect "/users/#{@user.slug}/edit"
+      elsif params[:user][:email] == '' || params[:old_password] == ''
+        flash[:error] = 'please fill out all required fields'
+        redirect "/users/#{@user.slug}/edit"
+      elsif User.find_by(email: params[:user][:email]) && params[:user][:email] != @user.email
+        flash[:error] = 'email is already taken'
+        redirect "/users/#{@user.slug}/edit"
+      elsif params[:user][:password] != params[:user][:password_confirmation]
+        flash[:error] = 'password confirmation does not match'
+        redirect "/users/#{@user.slug}/edit"
+      elsif params[:user][:password] == '' && params[:user][:password_confirmation] == ''
+        @user.update(email: params[:user][:email])
+        redirect "/users/#{params[:slug]}"
+      else
+        @user.update(params[:user])
+        redirect "/users/#{params[:slug]}"
+      end
+    elsif logged_in?
+      flash[:notice] = "you must be logged in as #{@user.username} to do that"
+      redirect "/users/#{current_user.slug}"
+    else
+      flash[:notice] = 'you must be logged in to view that page'
+      redirect '/login'
+    end
   end
 
   # GET: /users/guy/delete
@@ -100,8 +135,11 @@ class UsersController < ApplicationController
     @user = User.find_by_slug(params[:slug])
     if current_user == @user || current_user.admin?
       erb :'/users/delete'
-    else
+    elsif logged_in?
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
+      redirect "/users/#{current_user.slug}"
+    else
+      flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
     end
   end
@@ -112,8 +150,11 @@ class UsersController < ApplicationController
     if current_user == @user || current_user.admin?
       @user.delete
       redirect '/'
-    else
+    elsif logged_in?
       flash[:warning] = "must be logged in as #{@user.username} to delete #{@user.username}"
+      redirect "/users/#{current_user.slug}"
+    else
+      flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
     end
   end
@@ -128,7 +169,7 @@ class UsersController < ApplicationController
     # redirect wrong user
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
-      redirect '/'
+      redirect "/users/#{current_user.slug}"
     # logged out user go away
     else
       flash[:notice] = 'you must be logged in to view that page'
@@ -146,7 +187,7 @@ class UsersController < ApplicationController
     # wrong user redirected
     elsif logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
-      redirect '/'
+      redirect "/users/#{current_user.slug}"
     # logged out sent to login
     else
       flash[:notice] = 'you must be logged in to view that page'
@@ -172,7 +213,7 @@ class UsersController < ApplicationController
       redirect "/users/#{@user.slug}"
     elsif current_user != @user && logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
-      redirect '/'
+      redirect "/users/#{current_user.slug}"
     else
       flash[:notice] = 'you must be logged in to view that page'
       redirect '/login'
@@ -195,7 +236,7 @@ class UsersController < ApplicationController
     # redirect wrong user
     elsif current_user != @user && logged_in?
       flash[:notice] = "you must be logged in as #{@user.username} to do that"
-      redirect '/'
+      redirect "/users/#{current_user.slug}"
     # logged out sent to login
     else
       flash[:notice] = 'you must be logged in to view that page'
