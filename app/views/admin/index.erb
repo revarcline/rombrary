@@ -5,6 +5,7 @@
   <input type="hidden" name="_method" value="delete">
 
   <h3>console: </h3>
+  <p>NOTE: this will destroy all games for a given console!</p>
   <% Console.order(:name).each do |console| %>
     <input id="<%= console.name %>"
            type="checkbox"
@@ -12,7 +13,6 @@
            value="<%= console.id %>">
     <label for="<%= console.name %>"><%= console.name %></label><br>
   <% end %><br>
-   <br>
   
   <h3>genre: </h3>
   <% Genre.order(:name).each do |genre| %>
@@ -22,33 +22,34 @@
            value="<%= genre.id %>">
     <label for="<%= genre.name %>"><%= genre.name %></label><br>
   <% end %><br>
-   <br>
  
   <h3>region: </h3>
   <% Region.order(:name).each do |region| %>
     <input id="<%= region.name %>"
            type="checkbox"
-           name="region[]"
-           value="<%= genre.id %>">
+           name="regions[]"
+           value="<%= region.id %>">
     <label for="<%= region.name %>"><%= region.name %></label><br>
   <% end %><br>
-   <br>
  
   <h3>publisher: </h3>
   <% Publisher.order(:name).each do |publisher| %>
     <input id="<%= publisher.name %>"
            type="checkbox"
-           name="publisher[]"
+           name="publishers[]"
            value="<%= publisher.id %>">
     <label for="<%= publisher.name %>"><%= publisher.name %></label><br>
   <% end %><br>
-   <br>
 
    <input type="submit" value="delete selected">
+   <br>
+   <br>
+   
 </form>
 
 
 <h2>delete orphan joins</h2>
+<p>run this occasionally to remove orphaned join table entries</p>
 <form action="/admin/delete_orphans" method="post">
   <input type="hidden" name="_method" value="delete">
   <input type="submit" value="delete orphans">

@@ -91,7 +91,7 @@ users/:slug - all user games
 
 do in user controller as above
 
-put login page on home view, only display if logged in!
+put login page on home view, only dhttps://twitter.com/dhxrin/status/1356296135879479302isplay if logged in!
 
 
 if game in no libraries, can be deleted by logged in user
@@ -148,3 +148,4 @@ maybe create an admin view? yes, where you can run automated orphan collection a
 
 ok add admin then
 (pretty painless)
+(it works except for patch/delete requests still being borked)

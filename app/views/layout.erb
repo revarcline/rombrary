@@ -18,6 +18,9 @@
         logged in as <a href="/users/<%= current_user.slug %>">
       <%= current_user.username %></a> - 
         <a href="/logout">logout</a>
+        <% if current_user.admin? %>
+          - <a href="/admin">admin</a>
+        <% end %>
       <% else %>
         <a href="/login">login</a> - 
         <a href="/signup">signup</a>

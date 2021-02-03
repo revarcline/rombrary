@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
-  # POST: /admins
-  post '/admin' do
+  # GET: /admin
+  get '/admin' do
     if current_user.admin?
       erb :'admin/index'
     else
@@ -9,7 +9,22 @@ class AdminController < ApplicationController
     end
   end
 
-  # DELETE: /admins/5/delete
+  # DELETE: /admin/delete_params
+  delete '/admin/delete_orphans' do
+    if current_user.admin?
+      Console.where(id: params[:consoles]).destroy_all
+      Genre.where(id: params[:genres]).destroy_all
+      Region.where(id: params[:regions]).destroy_all
+      Publisher.where(id: params[:publishers]).destroy_all
+      flash[:notice] = 'all items deleted successfully'
+      redirect '/admin'
+    else
+      flash[:warning] = 'only an admin user may perform this action'
+      redirect '/'
+    end
+  end
+
+  # DELETE: /admin/delete_orphans
   delete '/admin/delete_orphans' do
     if current_user.admin?
       # remove orphan join table entries

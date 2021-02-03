@@ -2,6 +2,8 @@
 <br>
 
 <form action="/games" method="post">
+  <input type="hidden" name="_method" value="patch">
+
   <h3>game name*: </h3>
   <input type="text" name="game[name]" id="game_name" value="<%= @game.name %>">
   <br>
