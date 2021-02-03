@@ -4,6 +4,7 @@
       (<%= @game.regions.map(&:name).join('/') %>)
       from your library?
 </h3>
+<p>note: if you are the only person with this game in your library, the game will also be deleted.</p>
 <form action="/users/<%= @user.slug %>/<%= @game.id %>" method="post">
   <input type="hidden" name="_method" value="DELETE">
   <input type="submit" value="remove game">
