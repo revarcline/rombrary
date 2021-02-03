@@ -140,6 +140,8 @@ OK SO delete method (hidden form? idek) is borked, go to office hours
 CURRENT CRISIS:
 cannot seem to delete associations in many-to-many
 furthermore Game.update creates new instance
-are join tables read only?
+are join tables read only? (this seems fixed)
 
 it appears my edit form is not working as a patch
+
+maybe create an admin view? urgh. automated orphan collection is less easy.

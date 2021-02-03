@@ -160,8 +160,13 @@ class UsersController < ApplicationController
     @game = Game.find(params[:id])
     if current_user == @user && current_user.games.include?(@game)
       ug = UserGame.where(user: @user, game: @game)
-      # pass created_by to next user with game or delete record if orphaned
+      # pass created_by to next user with game or delete orphan
       ug[0].destroy
+      if (ug_new = UserGame.where(game: @game)) != []
+        ug_new[0].created_by = true
+      else
+        @game.destroy
+      end
       redirect "/users/#{@user.slug}"
     elsif current_user == @user && !current_user.games.include?(@game)
       flash[:notice] = "#{@user.username} doesn't own #{@game.name}"

@@ -1,5 +1,9 @@
 <h1><%= @attr.capitalize %>: <%= @obj.name %></h1>
 
+<% if logged_in? %>
+  can't find what you're looking for? <a href="/games/new">add a new game</a>
+<% end %>
+
 <div class="gamelist">
   <% @gamelist.each do |game| %>
     <div class="gamelink">
