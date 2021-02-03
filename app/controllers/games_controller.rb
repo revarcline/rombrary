@@ -88,13 +88,13 @@ class GamesController < ApplicationController
     @attr = params[:attr]
     case @attr
     when 'genre'
-      @list = Genre.all
+      @list = Genre.order(:name)
     when 'region'
-      @list = Region.all
+      @list = Region.order(:name)
     when 'console'
-      @list = Console.all
+      @list = Console.order(:name)
     when 'publisher'
-      @list = Publisher.all
+      @list = Publisher.order(:name)
     end
     erb :'/games/index_attr'
   end

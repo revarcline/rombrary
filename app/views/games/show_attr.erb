@@ -7,6 +7,17 @@
         <%= game.name %></a> - 
       <%= game.console.name %>
       (<%= game.regions.map(&:name).join('/') %>)
+      <% if logged_in? %>
+        <% if current_user.games.include?(game) %>
+          <a href="/users/<%= current_user.slug %>/remove/<%= game.id %>">x</a>
+        <% else %>
+          <a href="/users/<%= current_user.slug %>/add/<%= game.id %>">+</a>
+        <% end %>
+        <% if game.created_by == current_user %>
+          <a href="/games/<%= game.id %>/edit">edit</a>
+          <a href="/games/<%= game.id %>/delete">delete</a>
+        <% end %>
+      <% end %>
     </div>
   <% end %>
   <h2><%= 'nothing to see here' if @gamelist.empty? %></h1> 
