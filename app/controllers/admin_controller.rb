@@ -1,7 +1,12 @@
-class AdminsController < ApplicationController
+class AdminController < ApplicationController
   # POST: /admins
   post '/admin' do
-    erb :'admin/index'
+    if current_user.admin?
+      erb :'admin/index'
+    else
+      flash[:warning] = 'only an admin user may perform this action'
+      redirect '/'
+    end
   end
 
   # DELETE: /admins/5/delete
