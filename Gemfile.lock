@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/bmabey/database_cleaner.git
-  revision: 77f89a0aac686391840e59cc2302a779bb1b4ec0
+  revision: c889b94a6debf2c0103215ca905eafd04eead1d5
   specs:
-    database_cleaner (2.0.0.beta)
-      database_cleaner-active_record (~> 2.0.0.beta2)
-    database_cleaner-core (2.0.0.beta2)
+    database_cleaner (2.0.1)
+      database_cleaner-active_record (~> 2.0.0)
+    database_cleaner-core (2.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -36,15 +36,13 @@ GEM
     coderay (1.1.3)
     concurrent-ruby (1.1.8)
     daemons (1.3.1)
-    database_cleaner-active_record (2.0.0.beta2)
-      activerecord
-      database_cleaner-core (~> 2.0.0.beta2)
+    database_cleaner-active_record (2.0.0)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
     diff-lcs (1.4.4)
     dotenv (2.7.6)
     eventmachine (1.2.7)
-    fuzzily (0.3.3)
-      activerecord (>= 2.3.17)
-    i18n (1.8.7)
+    i18n (1.8.8)
       concurrent-ruby (~> 1.0)
     method_source (1.0.0)
     mini_mime (1.0.2)
@@ -127,7 +125,6 @@ DEPENDENCIES
   capybara
   database_cleaner!
   dotenv
-  fuzzily
   pry
   rack-flash3
   rack-test

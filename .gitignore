@@ -6,3 +6,4 @@ bin/
 
 # database
 db/*.sqlite
+/bin

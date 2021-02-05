@@ -68,22 +68,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # GET /games/by/genre
-  get '/games/by/:attr' do
-    @attr = params[:attr]
-    case @attr
-    when 'genre'
-      @list = Genre.all
-    when 'region'
-      @list = Region.all
-    when 'console'
-      @list = Console.all
-    when 'publisher'
-      @list = Publisher.all
-    end
-    erb :'/games/index_attr'
-  end
-
   # GET: /users/guy/edit
   get '/users/:slug/edit' do
     @user = User.find_by_slug(params[:slug])
@@ -203,7 +187,7 @@ class UsersController < ApplicationController
       @user.games.destroy(@game)
       # pass created_by to next user with game or delete orphan
       if (ug = UserGame.where(game: @game)) != []
-        ug[0].created_by = true
+        ug[0].update(created_by: true)
       else
         @game.destroy
       end
